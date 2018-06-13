@@ -1,0 +1,66 @@
+.login {
+    bottom: 0;
+    height: 350px;
+    margin-top: 50vh;
+    transform: translate(0px, -50%);
+    /* bring your own prefixes */
+    padding: 10px 0px;
+}
+
+.form-login {
+    padding: 20px 20px;
+    height: 80%;
+}
+
+.body {
+    overflow: hidden;
+    background:#007bff!important;
+}
+
+.input-userpass {
+    margin: 20px 0px;
+}
+
+.input-userpass .input-group {
+    margin-bottom: 5px;
+}
+
+.remember {
+    margin-bottom: 10px;
+}
+
+#dashboard {
+    height: 100vh;
+}
+
+#side {
+    min-height: 100vh;
+    overflow-y: scroll;
+    position: fixed;
+    padding: 0;
+}
+
+#board {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#side-logo {
+    padding: 10px;
+    height: 150px;
+}
+
+.menu-item {
+    border: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+#container-board {
+    padding: 20px;
+    min-height: 100vh;
+}
+
+#brand {
+    border: 0;
+}
