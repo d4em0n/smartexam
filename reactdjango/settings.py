@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,14 +26,15 @@ SECRET_KEY = '463hzk*onkb4h&+j@mof$wc(20t$$l17w#(v8-6ipzq7m=$a=j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['react-django.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['react-django.herokuapp.com', '127.0.0.1', 'localhost']
 
-
+APPEND_SLASH = False
 # Application definition
 
 INSTALLED_APPS = [
   'sampleapp',
-
+  'sekolah',
+  'rest_framework',
   'django.contrib.admin',
   'django.contrib.auth',
   'django.contrib.contenttypes',
@@ -77,11 +79,17 @@ WSGI_APPLICATION = 'reactdjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
   }
+}
+
+DATABASES['default'] = dj_database_url.config(default="mysql://%2fvar%2frun%2fmysqld%2fmysqld.sock/ulangan_siswa")
+DATABASES['default']['OPTIONS'] = {
+  'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
 }
 
 
@@ -117,6 +125,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'sekolah.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
