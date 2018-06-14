@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button} from 'reactstrap';
+import 'typeface-roboto';
+import {Button} from 'mdbreact';
 import {store} from '../stores/store';
 import {unsetProfile} from '../actions/profile';
 import {unsetAuth} from '../actions/auth';
@@ -26,7 +27,9 @@ class GuruDashboard extends React.Component {
         return (
         <div>
             <h2>Ini halaman guru</h2><br/>
-            <Button onClick={this.logout.bind(this)}>Logout</Button>
+            <Button onClick={this.logout.bind(this)} variant="contained" color="primary">
+                Logout
+            </Button>
         </div>
         );
     }
