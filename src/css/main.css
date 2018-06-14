@@ -14,7 +14,9 @@
 
 .body {
     overflow: hidden;
-    background:#007bff!important;
+    background: url('../img/loginBg.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .input-userpass {
@@ -63,4 +65,76 @@
 
 #brand {
     border: 0;
+}
+
+.box-border {
+    height: 150px;
+    cursor: pointer;
+    transition: .1s;
+}
+
+.box-border h5 {
+    vertical-align: middle;
+    margin-top: 50px;
+}
+
+.box-border:hover {
+    transform: scale(1.05, 1.05);
+    z-index: 99;
+
+}
+
+.soal {
+    padding-bottom: 60px;
+}
+
+.pertanyaan {
+    font-size: 3.0vw;
+}
+
+.ujian-body {
+}
+
+.border {
+    border:1px solid #bbb;
+}
+
+.answer {
+}
+
+.jawaban input[type="radio"] {
+  display: none;
+}
+
+.jawaban input[type="radio"] + label {
+  color: #4c4c4c;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
+
+.jawaban input[type="radio"] + label span {
+  box-shadow: 0 0 0 2px #cccccc;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: -1px 7px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.jawaban input[type="radio"] + label span {
+  border: 4px solid #ffffff;
+  background-color: #ffffff;
+}
+
+.jawaban input[type="radio"]:checked + label span {
+  background-color: #0277bd;
+}
+
+.arrow button {
+    border-radius: 10em;
+}
+
+.status {
 }
