@@ -1,23 +1,15 @@
 import React from 'react';
-import {Container, Row, Col, Input, Form} from 'mdbreact';
+import {Container, Row, Col, Input} from 'mdbreact';
 import { ToastContainer, toast } from 'react-toastify';
 import {checkLogin} from '../util/api';
 import {setAuth} from '../actions/auth';
 import {setProfile} from '../actions/profile';
 import {store} from '../stores/store';
 import '../css/main.css';
-import '../css/colors.css';
 import 'font-awesome/css/font-awesome.min.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbootstrap/css/bootstrap.min.css';
 import 'mdbootstrap/css/mdb.min.css';
-
-function InputForm(props) {
-    return (
-        <div>
-        </div>
-    );
-};
 
 class Login extends React.Component {
     constructor(props) {

@@ -3,7 +3,7 @@ import Login from './components/newlogin';
 import SiswaDashboard from './components/siswa';
 import GuruDashboard from './components/guru';
 import store from './stores/store';
-import {BrowserRouter as Router, Switch, Route, HashRouter} from 'react-router-dom';
+import {Switch, Route, HashRouter} from 'react-router-dom';
 
 class App extends Component {
     render() {

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Pagination, PageLink, PageItem} from 'mdbreact';
-import {Input, Form} from 'mdbreact'
 import {Fa, Button, Container, Row, Col} from 'mdbreact';
 
 function InputRadio(props) {

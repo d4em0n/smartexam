@@ -1,11 +1,11 @@
 import React from 'react';
 import {Button, Container, Row, Col} from 'mdbreact';
-import {Navbar, NavbarBrand, NavbarNav, NavbarText, NavItem, NavLink, Fa} from 'mdbreact';
+import {Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, Fa} from 'mdbreact';
 import {Modal, ModalBody, ModalHeader, ModalFooter} from 'mdbreact'
 import {store} from '../stores/store';
 import {unsetProfile} from '../actions/profile';
 import {unsetAuth} from '../actions/auth';
-import {BrowserRouter as Router, Switch, Route, HashRouter, Link} from 'react-router-dom';
+import {Switch, Route, HashRouter, Link} from 'react-router-dom';
 import MulaiUjian from './mulaiUjian';
 
 class SiswaDashboard extends React.Component {
