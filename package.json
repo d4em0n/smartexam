@@ -4,10 +4,14 @@
   "proxy": "http://localhost:8000",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^1.2.1",
+    "@material-ui/icons": "^1.1.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
+    "mdbootstrap": "^4.5.4",
+    "mdbreact": "^4.4.0",
     "popper.js": "^1.14.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -16,7 +20,8 @@
     "reactstrap": "^6.1.0",
     "redux": "^4.0.0",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typeface-roboto": "0.0.54"
   },
   "scripts": {
     "start": "react-scripts start",
