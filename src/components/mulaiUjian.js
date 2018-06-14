@@ -41,8 +41,9 @@ class MulaiUjian extends React.Component {
         this.setCurrentSoal(current_soal);
     }
     renderItem(len, active=1, answered=[]) {
-        var range_list = [...Array(len).keys()].map(i => i+1);
-        return range_list.map((i) => {
+        var range_list = [...Array(len).keys()];
+        return range_list.map((j) => {
+            let i = j + 1;
             let apn = "";
             let is_active = false;
             if(i == active) {
@@ -77,7 +78,7 @@ class MulaiUjian extends React.Component {
                         </Col>
                         <Col md="10" className="mx-auto border status rounded z-depth-2">
                             <span>Ulangan Harian Bahasa Indoensia</span>
-                            <span className="float-right">02.00</span>
+                            <span className="float-right">01.59</span>
                         </Col>
                         <Col md="10" className="pt-5 mx-auto soal rounded grey lighten-3 text-dark text-left z-depth-2">
                             <p className="pertanyaan text-center" style={{fontSize: (30 - this.state.pertanyaan.length/15)} }>{this.state.pertanyaan}</p>
