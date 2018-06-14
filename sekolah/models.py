@@ -24,6 +24,7 @@ class Guru(models.Model):
                                  on_delete=models.SET_NULL,
                                  null=True,
                                  blank=True)
+    kelas_ajar = models.ManyToManyField("Kelas", through='KelasAjar')
 
     def __str__(self):
         return self.user.username
@@ -34,7 +35,6 @@ class Guru(models.Model):
             self.user.is_guru = True
             self.user.save()
         super(Guru, self).save(*args, **kwargs)
-
 
 class Jurusan(models.Model):
     nama = models.CharField(max_length=32, unique=True)
@@ -52,6 +52,11 @@ class Kelas(models.Model):
 
     def __str__(self):
         return self.nama
+
+class KelasAjar(models.Model):
+    guru = models.ForeignKey(Guru, on_delete=models.CASCADE)
+    kelas = models.ForeignKey(Kelas, on_delete=models.CASCADE)
+
 
 
 class Siswa(models.Model):
@@ -76,6 +81,7 @@ class Ujian(models.Model):
     deskripsi = models.CharField(max_length=128)
     id_ujian = models.UUIDField(default=uuid.uuid4, unique=True)
     pembuat = models.ForeignKey(Guru, on_delete=models.CASCADE)
+    is_akitf = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
