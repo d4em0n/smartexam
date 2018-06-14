@@ -41,9 +41,8 @@ class MulaiUjian extends React.Component {
         this.setCurrentSoal(current_soal);
     }
     renderItem(len, active=1, answered=[]) {
-        var items = [];
         var range_list = [...Array(len).keys()].map(i => i+1);
-        range_list.forEach((i) => {
+        return range_list.map((i) => {
             let apn = "";
             let is_active = false;
             if(i == active) {
@@ -52,7 +51,7 @@ class MulaiUjian extends React.Component {
             if(!is_active && answered.includes(i)) {
                 apn = "green text-white z-depth-1";
             }
-            items.push(
+            return (
                 <PageItem key={i} active={is_active} onClick={() => this.setCurrentSoal(i)}>
                     <PageLink className={"page-link "+apn}>
                         {i}
@@ -60,7 +59,6 @@ class MulaiUjian extends React.Component {
                 </PageItem>
             );
         });
-        return items;
     }
     renderPagination() {
         return (
