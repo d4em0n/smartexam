@@ -8,6 +8,7 @@ import {store} from '../stores/store';
 import {unsetProfile} from '../actions/profile';
 import {unsetAuth} from '../actions/auth';
 import GuruDashboardMain from './guruDashboardMain';
+import {Switch, Route, HashRouter, Link} from 'react-router-dom';
 import $ from 'jquery';
 
 const MenuItem = (props) => {
@@ -27,6 +28,27 @@ class GuruDashboard extends React.Component {
         this.profile = store.getState().profile;
         this.toggleSidebar = this.toggleSidebar.bind(this);
         this.logout = this.logout.bind(this);
+        this.menuList = [
+            {
+                label: 'Home',
+                icon: 'home',
+                to: '/',
+                exact: true,
+                comp: GuruDashboardMain
+            },
+            {
+                label: 'Profil',
+                icon: 'user',
+                to: '/profile',
+                comp: () => (<h2>Ini Profile</h2>)
+            },
+            {
+                label: 'Pengaturan',
+                icon: 'wrench',
+                to: '/pengaturan',
+                comp: () => (<h2>Ini Pengaturan</h2>)
+            }
+        ];
     }
     componentWillMount() {
         if(!this.profile || !this.profile.is_guru) {
@@ -46,31 +68,26 @@ class GuruDashboard extends React.Component {
     toggleSidebar() {
         $("#side-wrapper").toggleClass("side-on");
     }
-    renderMenuItem() {
-        const menuList = [
-            {
-                label: 'Home',
-                icon: 'home',
-                to: '/',
-                active: true
-            },
-        ]
-        return menuList.map((menu) => {
-            return (
-                <MenuItem label={menu.label} icon={menu.icon} active={menu.active} key={menu.to} to={menu.to}/>
-            )
-        })
-    }
     render() {
         return (
-            <div id="side-wrapper" className="side-on">
+            <HashRouter basename="guru">
+                <div id="side-wrapper" className="side-on">
                     <div id="sidebar" className="grey lighten-4 z-depth-1 px-0">
                         <Navbar color="info-color-dark" dark className="px-0 pb-0">
                             <NavbarBrand className="text-white px-4">
                                 <strong><span className="menu-title">SmartExam v0.1</span></strong>
                             </NavbarBrand>
                             <NavbarNav>
-                                {this.renderMenuItem()}
+                                {this.menuList.map((menu, i) => {
+                                    let active = false;
+                                    if(`/${this.props.match.params.page}` == menu.to) {
+                                        active = true;
+                                    }
+                                    if(menu.exact && !this.props.match.params.page) {
+                                        active = true;
+                                    }
+                                    return (<MenuItem label={menu.label} icon={menu.icon} active={active} key={i} to={menu.to}/>)
+                                })}
                             </NavbarNav>
                         </Navbar>
                     </div>
@@ -85,9 +102,12 @@ class GuruDashboard extends React.Component {
                                 </NavItem>
                             </NavbarNav>
                         </Navbar>
-                        <GuruDashboardMain />
+                        {this.menuList.map((menu, i) => {
+                            return (<Route exact={menu.exact} path={menu.to} key={i} component={menu.comp}/>);
+                        })}
                     </Container>
-            </div>
+                </div>
+            </HashRouter>
         );
     }
 }

@@ -11,7 +11,7 @@ class App extends Component {
             <HashRouter basename="/">
                 <Switch>
                     <Route exact path="/" component={Login} />)} />
-                    <Route path="/guru" component={GuruDashboard} />
+                    <Route path="/guru/:page?" component={GuruDashboard} />
                     <Route path="/siswa" component={SiswaDashboard} />
                 </Switch>
             </HashRouter>
