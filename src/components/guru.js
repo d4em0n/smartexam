@@ -14,7 +14,6 @@ class GuruDashboard extends React.Component {
         this.profile = store.getState().profile;
         this.toggleSidebar = this.toggleSidebar.bind(this);
         this.logout = this.logout.bind(this);
-        this.toggle = 0;
     }
     componentWillMount() {
         if(!this.profile || !this.profile.is_guru) {
@@ -22,7 +21,6 @@ class GuruDashboard extends React.Component {
         }
     }
     componentDidMount() {
-        this.sidewidth = $("#sidebar").css("width");
     }
     gotoLogin() {
         window.location.hash = "/";
@@ -38,20 +36,29 @@ class GuruDashboard extends React.Component {
     render() {
         return (
             <div id="side-wrapper" className="side-on">
-                    <div id="sidebar" className="border grey lighten-4 z-depth-1 px-0">
+                    <div id="sidebar" className="grey lighten-4 z-depth-1 px-0">
                         <Navbar color="info-color-dark" dark className="px-0 pb-0">
                             <NavbarBrand className="text-white px-4">
-                                <strong>SmartExam v0.1</strong>
+                                <strong><span className="menu-title">SmartExam v0.1</span></strong>
                             </NavbarBrand>
                             <NavbarNav>
                                 <NavItem active>
-                                    <NavLink to="/" className="px-4"><Fa icon="home" className="mr-2"/>Home</NavLink>
+                                    <NavLink to="/" className="px-4">
+                                        <Fa icon="home" className="mr-2" fixed/>
+                                        <span className="menu-title">Home</span>
+                                    </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink to="/" className="px-4"><Fa icon="user" className="mr-2"/>Profile</NavLink>
+                                    <NavLink to="/" className="px-4">
+                                        <Fa icon="user" className="mr-2" fixed/>
+                                        <span className="menu-title">Profile</span>
+                                    </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink to="/" className="px-4"><Fa icon="wrench" className="mr-2"/>Pengaturan</NavLink>
+                                    <NavLink to="/" className="px-4">
+                                        <Fa icon="wrench" className="mr-2" fixed/>
+                                        <span className="menu-title">Pengaturan</span>
+                                    </NavLink>
                                 </NavItem>
                             </NavbarNav>
                         </Navbar>
@@ -67,16 +74,36 @@ class GuruDashboard extends React.Component {
                                 </NavItem>
                             </NavbarNav>
                         </Navbar>
-                        <Col sm="12" id="guru-info" className="py-4 px-5">
+                        <Col sm="12" id="guru-info" className="py-4 px-4 text-white">
                             <Row>
-                            <Col sm="3" className="info-dashboard border mr-2">
-                            </Col>
-                            <Col sm="3" className="info-dashboard border mr-2">
-                            </Col>
-                            <Col sm="3" className="info-dashboard border mr-2">
-                            </Col>
-                            <Col sm="3" className="info-dashboard border mr-2">
-                            </Col>
+                                <Col sm="12" md="6" className="info-dashboard rounded hoverable border-success px-0 text-success">
+                                    <Fa icon="group" className="info-icon" size="5x" />
+                                    <div class="info-text">
+                                        <h1><b>11</b></h1>
+                                        <h2>Active</h2>
+                                    </div>
+                                </Col>
+                                <Col sm="12" md="6" className="info-dashboard rounded hoverable border-danger px-0 text-danger">
+                                    <Fa icon="laptop" className="info-icon" size="5x" />
+                                    <div class="info-text">
+                                        <h1><b>89</b></h1>
+                                        <h2>Passed Test</h2>
+                                    </div>
+                                </Col>
+                                <Col sm="12" md="6" className="info-dashboard rounded hoverable border-info px-0 text-info">
+                                    <Fa icon="hourglass" className="info-icon" size="5x" />
+                                    <div class="info-text">
+                                        <h1><b>4</b></h1>
+                                        <h2>On-going test</h2>
+                                    </div>
+                                </Col>
+                                <Col sm="12" md="6" className="info-dashboard rounded hoverable border-warning px-0 text-warning">
+                                    <Fa icon="gears" className="info-icon" size="5x" />
+                                    <div class="info-text">
+                                        <h1><b>0</b></h1>
+                                        <h2>Inactive test</h2>
+                                    </div>
+                                </Col>
                             </Row>
                         </Col>
                     </Container>

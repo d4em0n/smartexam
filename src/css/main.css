@@ -150,18 +150,12 @@
 }
 
 #side-wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
+    padding-left: 40px;
     transition: all 0.5s ease;
 }
 
 #side-wrapper #sidebar {
-    width: 0px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
+    width: 40px;
     transition: all 0.5s ease;
 }
 
@@ -179,4 +173,43 @@
 
 .info-dashboard {
     height: 150px;
+    cursor: pointer;
+}
+.info-dashboard .info-text {
+    margin-top:30px;
+    padding: 10px;
+}
+
+.info-dashboard .info-icon {
+    margin-top: 15px;
+    margin-right: 5px;
+    float: right;
+}
+
+#side-wrapper #sidebar .menu-title {
+    display: none;
+}
+
+#side-wrapper #sidebar .nav-link {
+    padding-left: 10px!important;
+}
+
+#side-wrapper.side-on #sidebar .menu-title {
+    display: inline-block;
+}
+
+.border-success {
+    border: 1px solid #00C851;
+}
+
+.border-danger {
+    border: 1px solid #ff4444;
+}
+
+.border-warning {
+    border: 1px solid #ffbb33;
+}
+
+.border-info {
+    border: 1px solid #33b5e5;
 }
