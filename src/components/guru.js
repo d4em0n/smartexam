@@ -109,7 +109,7 @@ class GuruDashboard extends React.Component {
                             <Row id="info-table" className="pt-5">
                                 <Col sm="12" md="6" className="tbl-info text-dark">
                                     <h2>Recent activity</h2>
-                                    <Table>
+                                    <Table small>
                                         <thead>
                                             <tr>
                                                 <th>Time</th>
@@ -130,7 +130,7 @@ class GuruDashboard extends React.Component {
                                 </Col>
                                 <Col sm="12" md="6" className="tbl-info text-dark">
                                     <h2>Recent finished exams</h2>
-                                    <Table>
+                                    <Table small>
                                         <thead>
                                             <tr>
                                                 <th>Time</th>
@@ -151,6 +151,49 @@ class GuruDashboard extends React.Component {
                                             </tr>
                                         </tbody>
                                     </Table>
+                                </Col>
+                            </Row>
+                            <Row id="info-kelas" className="text-dark">
+                                <Col sm="12">
+                                    <h1>Your Classes</h1>
+                                    <Row>
+                                        <Col md="3" className="kelas-detail rounded danger-color text-white text-center py-0 px-0">
+                                            <div className="jumlah-siswa text-center pt-5">
+                                                <h2><strong>40 Siswa</strong></h2>
+                                            </div>
+                                            <div className="kelas-detail-title mt-3">
+                                                <h3>RPL 1</h3>
+                                                <Fa icon="group" size="4x"/>
+                                            </div>
+                                        </Col>
+                                        <Col md="3" className="kelas-detail rounded warning-color text-white text-center py-0 px-0">
+                                            <div className="jumlah-siswa text-center pt-5">
+                                                <h2><strong>37 Siswa</strong></h2>
+                                            </div>
+                                            <div className="kelas-detail-title mt-3">
+                                                <h3>RPL 2</h3>
+                                                <Fa icon="group" size="4x"/>
+                                            </div>
+                                        </Col>
+                                        <Col md="3" className="kelas-detail rounded success-color text-white text-center py-0 px-0">
+                                            <div className="jumlah-siswa text-center pt-5">
+                                                <h2><strong>35 Siswa</strong></h2>
+                                            </div>
+                                            <div className="kelas-detail-title mt-3">
+                                                <h3>TSM 1</h3>
+                                                <Fa icon="group" size="4x"/>
+                                            </div>
+                                        </Col>
+                                        <Col md="3" className="kelas-detail rounded info-color text-white text-center py-0 px-0">
+                                            <div className="jumlah-siswa text-center pt-5">
+                                                <h2><strong>42 Siswa</strong></h2>
+                                            </div>
+                                            <div className="kelas-detail-title mt-3">
+                                                <h3>TSM 2</h3>
+                                                <Fa icon="group" size="4x"/>
+                                            </div>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                         </Col>
