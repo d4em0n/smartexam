@@ -23,7 +23,6 @@ class GuruDashboard extends React.Component {
     }
     componentDidMount() {
         this.sidewidth = $("#sidebar").css("width");
-        $("#guru-dashboard").css({"margin-left": this.sidewidth});
     }
     gotoLogin() {
         window.location.hash = "/";
@@ -34,22 +33,12 @@ class GuruDashboard extends React.Component {
         return this.gotoLogin();
     }
     toggleSidebar() {
-        this.toggle = !this.toggle;
-        if(this.toggle) {
-            $("#guru-dashboard").css({"margin-left": "0px"});
-            $("#sidebar").css({"width": "0px"});
-            $("#guru-dashboard").addClass("col-sm-12");
-        } else {
-            $("#sidebar").css({"width": this.sidewidth});
-            $("#guru-dashboard").css({"margin-left": this.sidewidth});
-            $("#guru-dashboard").removeClass("col-sm-12");
-        }
+        $("#side-wrapper").toggleClass("side-on");
     }
     render() {
         return (
-            <Container fluid={true}>
-                <Row>
-                    <Col sm="2" id="sidebar" className="border grey lighten-4 z-depth-1 px-0">
+            <div id="side-wrapper" className="side-on">
+                    <div id="sidebar" className="border grey lighten-4 z-depth-1 px-0">
                         <Navbar color="info-color-dark" dark className="px-0 pb-0">
                             <NavbarBrand className="text-white px-4">
                                 <strong>SmartExam v0.1</strong>
@@ -66,21 +55,32 @@ class GuruDashboard extends React.Component {
                                 </NavItem>
                             </NavbarNav>
                         </Navbar>
-                    </Col>
-                    <Col sm="10" id="guru-dashboard" className="px-0">
-                    <Navbar color="info-color-dark" dark expand="md">
-                        <NavbarBrand className="text-white" onClick={this.toggleSidebar}>
-                            <strong><Fa icon="bars"/></strong>
-                        </NavbarBrand>
-                        <NavbarNav right>
-                            <NavItem className="text-white" onClick={this.logout}>
-                                <a><strong>Logout</strong></a>
-                            </NavItem>
-                        </NavbarNav>
-                    </Navbar>
-                    </Col>
-                </Row>
-            </Container>
+                    </div>
+                    <Container fluid={true} id="guru-dashboard" className="px-0">
+                        <Navbar color="info-color-dark" dark expand="md">
+                            <NavbarBrand className="text-white" onClick={this.toggleSidebar}>
+                                <strong><Fa icon="bars"/></strong>
+                            </NavbarBrand>
+                            <NavbarNav right>
+                                <NavItem className="text-white" onClick={this.logout}>
+                                    <a><strong>Logout</strong></a>
+                                </NavItem>
+                            </NavbarNav>
+                        </Navbar>
+                        <Col sm="12" id="guru-info" className="py-4 px-5">
+                            <Row>
+                            <Col sm="3" className="info-dashboard border mr-2">
+                            </Col>
+                            <Col sm="3" className="info-dashboard border mr-2">
+                            </Col>
+                            <Col sm="3" className="info-dashboard border mr-2">
+                            </Col>
+                            <Col sm="3" className="info-dashboard border mr-2">
+                            </Col>
+                            </Row>
+                        </Col>
+                    </Container>
+            </div>
         );
     }
 }
