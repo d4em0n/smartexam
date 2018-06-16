@@ -59,7 +59,7 @@ class Login extends React.Component {
             <Container>
                 <Row>
                     <Col md="4" sm="8" className="login primary-color center-screen text-center text-white rounded shadow mx-auto">
-                        <h3>Login Form</h3>
+                        <h3><strong>Login Form</strong></h3>
                         <Col sm="12" className="form-login bg-white text-dark text-left rounded">
                             <div className="status bg-danger text-white rounded">{}</div>
                             <form>
