@@ -3,6 +3,7 @@ import {Button} from 'mdbreact';
 import {Container, Row, Col} from 'mdbreact';
 import {Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, Fa} from 'mdbreact';
 import {ListGroup, ListGroupItem} from 'mdbreact';
+import {Table} from 'mdbreact';
 import {store} from '../stores/store';
 import {unsetProfile} from '../actions/profile';
 import {unsetAuth} from '../actions/auth';
@@ -103,6 +104,53 @@ class GuruDashboard extends React.Component {
                                         <h1><b>0</b></h1>
                                         <h2>Inactive test</h2>
                                     </div>
+                                </Col>
+                            </Row>
+                            <Row id="info-table" className="pt-5">
+                                <Col sm="12" md="6" className="tbl-info text-dark">
+                                    <h2>Recent activity</h2>
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2018-08-12 20:08</td>
+                                                <td>Ujian bahasa indonesia is activated</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-08-11 20:08</td>
+                                                <td>Setting ujian bahasa inggris status to inactive</td>
+                                            </tr>
+                                        </tbody>
+                                    </Table>
+                                </Col>
+                                <Col sm="12" md="6" className="tbl-info text-dark">
+                                    <h2>Recent finished exams</h2>
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Description</th>
+                                                <th>Result</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2018-08-12 20:08</td>
+                                                <td>Ari setiawan just finished exams.</td>
+                                                <td><Button color="success" size="sm">See the report</Button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-08-12 20:01</td>
+                                                <td>Muhammad Aji Bintang Nugraha just finished exams.</td>
+                                                <td><Button color="success" size="sm">See the report</Button></td>
+                                            </tr>
+                                        </tbody>
+                                    </Table>
                                 </Col>
                             </Row>
                         </Col>
