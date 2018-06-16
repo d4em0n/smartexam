@@ -10,6 +10,17 @@ import {unsetAuth} from '../actions/auth';
 import GuruDashboardMain from './guruDashboardMain';
 import $ from 'jquery';
 
+const MenuItem = (props) => {
+    return (
+        <NavItem active={props.active}>
+            <NavLink to={props.to} className="px-4">
+                <Fa icon={props.icon} className="mr-2" fixed/>
+                <span className="menu-title">{props.label}</span>
+            </NavLink>
+        </NavItem>
+    );
+}
+
 class GuruDashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -35,6 +46,21 @@ class GuruDashboard extends React.Component {
     toggleSidebar() {
         $("#side-wrapper").toggleClass("side-on");
     }
+    renderMenuItem() {
+        const menuList = [
+            {
+                label: 'Home',
+                icon: 'home',
+                to: '/',
+                active: true
+            },
+        ]
+        return menuList.map((menu) => {
+            return (
+                <MenuItem label={menu.label} icon={menu.icon} active={menu.active} key={menu.to} to={menu.to}/>
+            )
+        })
+    }
     render() {
         return (
             <div id="side-wrapper" className="side-on">
@@ -44,24 +70,7 @@ class GuruDashboard extends React.Component {
                                 <strong><span className="menu-title">SmartExam v0.1</span></strong>
                             </NavbarBrand>
                             <NavbarNav>
-                                <NavItem active>
-                                    <NavLink to="/" className="px-4">
-                                        <Fa icon="home" className="mr-2" fixed/>
-                                        <span className="menu-title">Home</span>
-                                    </NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink to="/" className="px-4">
-                                        <Fa icon="user" className="mr-2" fixed/>
-                                        <span className="menu-title">Profile</span>
-                                    </NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink to="/" className="px-4">
-                                        <Fa icon="wrench" className="mr-2" fixed/>
-                                        <span className="menu-title">Pengaturan</span>
-                                    </NavLink>
-                                </NavItem>
+                                {this.renderMenuItem()}
                             </NavbarNav>
                         </Navbar>
                     </div>
