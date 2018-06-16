@@ -58,7 +58,7 @@ class Login extends React.Component {
         <Container fluid={true} className="body">
             <Container>
                 <Row>
-                    <Col sm="4" className="login center-screen text-center text-white rounded shadow bg-info mx-auto">
+                    <Col sm="4" className="login primary-color center-screen text-center text-white rounded shadow mx-auto">
                         <h3>Login Form</h3>
                         <Col sm="12" className="form-login bg-white text-dark text-left rounded">
                             <div className="status bg-danger text-white rounded">{}</div>
