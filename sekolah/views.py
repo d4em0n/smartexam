@@ -68,7 +68,7 @@ class UjianList(generics.ListCreateAPIView):
         else:
             return queryset
 
-class UjianDetail(generics.ListCreateAPIView):
+class UjianPertanyaanList(generics.ListCreateAPIView):
     serializer_class = PertanyaanUrlSerializer
 
     def get_queryset(self):
