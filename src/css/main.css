@@ -103,17 +103,21 @@
 .answer {
 }
 
-.jawaban input[type="radio"] {
+.custom-radio input[type="radio"] {
   display: none;
 }
 
-.jawaban input[type="radio"] + label {
+.custom-radio input[type="radio"] + label {
   color: #4c4c4c;
   font-family: Arial, sans-serif;
   font-size: 20px;
 }
 
-.jawaban input[type="radio"] + label span {
+.custom-radio.size-sm input[type="radio"] + label {
+    font-size: 15px;
+}
+
+.custom-radio input[type="radio"] + label span {
   box-shadow: 0 0 0 2px #cccccc;
   display: inline-block;
   width: 20px;
@@ -124,12 +128,12 @@
   border-radius: 50%;
 }
 
-.jawaban input[type="radio"] + label span {
+.custom-radio input[type="radio"] + label span {
   border: 4px solid #ffffff;
   background-color: #ffffff;
 }
 
-.jawaban input[type="radio"]:checked + label span {
+.custom-radio input[type="radio"]:checked + label span {
   background-color: #0277bd;
 }
 
@@ -233,4 +237,19 @@
 
 .kelas-detail:hover .jumlah-siswa {
     display: block;
+}
+
+.tasks-detail-text {
+}
+
+.icon-tasks {
+    border-radius: 50%;
+}
+
+.input-soal {
+    display: inline-block;
+}
+
+.inline {
+    display: inline-block;
 }
