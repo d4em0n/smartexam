@@ -4,7 +4,7 @@ import {Fa, Button, Container, Row, Col} from 'mdbreact';
 
 function InputRadio(props) {
     return (
-        <div className="jawaban">
+        <div className="custom-radio">
             <input type="radio"  {...props} />
             <label htmlFor={props.id}>
                 <span></span>
