@@ -78,7 +78,7 @@ class UjianPertanyaanList(generics.ListCreateAPIView):
 #   permission_classes = (IsOwnerOrReadOnly,)
 
 
-class PertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
+class UjianPertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pertanyaan.objects.all()
     serializer_class = PertanyaanSerializer
 
