@@ -55,18 +55,26 @@ class GuruDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UjianList(generics.ListCreateAPIView):
-    queryset = Ujian.objects.all()
     serializer_class = UjianSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
+    def get_queryset(self):
+        queryset = Ujian.objects.all()
+        user = self.request.user
+        if user.is_guru:
+            return queryset.filter(pembuat__user=user)
+        elif user.is_siswa:
+            return queryset.filter(pembuat__kelas_ajar=user.siswa.kelas)
+        else:
+            return queryset
 
 class UjianDetail(generics.ListCreateAPIView):
-    queryset = Pertanyaan.objects.all()
     serializer_class = PertanyaanUrlSerializer
 
-    def get_object(self):
-        queryset = self.get_queryset()
+    def get_queryset(self):
+        queryset = Pertanyaan.objects.all()
         pk = self.kwargs['pk']
-        return get_object_or_404(queryset, ujian__id_ujian=pk)
+        return queryset.filter(ujian__id_ujian=pk)
 #   permission_classes = (IsOwnerOrReadOnly,)
 
 
