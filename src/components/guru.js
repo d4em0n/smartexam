@@ -8,6 +8,7 @@ import {store} from '../stores/store';
 import {unsetProfile} from '../actions/profile';
 import {unsetAuth} from '../actions/auth';
 import GuruDashboardMain from './guruDashboardMain';
+import GuruUjian from './guruUjian';
 import {Switch, Route, HashRouter, Link} from 'react-router-dom';
 import $ from 'jquery';
 
@@ -47,6 +48,12 @@ class GuruDashboard extends React.Component {
                 icon: 'wrench',
                 to: '/pengaturan',
                 comp: () => (<h2>Ini Pengaturan</h2>)
+            },
+            {
+                label: 'Ujian',
+                icon: 'tasks',
+                to: '/ujian',
+                comp: GuruUjian
             }
         ];
     }
