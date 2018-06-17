@@ -109,9 +109,13 @@ class GuruDashboard extends React.Component {
                                 </NavItem>
                             </NavbarNav>
                         </Navbar>
-                        {this.menuList.map((menu, i) => {
-                            return (<Route exact={menu.exact} path={menu.to} key={i} component={menu.comp}/>);
-                        })}
+                        <Col sm="12" className="py-4 px-4 text-dark">
+                            <Switch>
+                                {this.menuList.map((menu, i) => {
+                                    return (<Route exact={menu.exact} path={menu.to} key={i} component={menu.comp}/>);
+                                })}
+                            </Switch>
+                        </Col>
                     </Container>
                 </div>
             </HashRouter>
