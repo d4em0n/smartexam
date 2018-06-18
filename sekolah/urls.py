@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^guru/(?P<pk>[0-9]+)/?$', views.GuruDetail.as_view()),
     url(r'^ujian/?$', views.UjianList.as_view()),
     #url(r'^ujian/(?P<pk>[0-9]+)/?$', views.UjianDetail.as_view()),
-    url(r'^ujian/(?P<pk>[0-9a-f-]+)/?$', views.UjianPertanyaanList.as_view(), name='ujian-detail'),
-    url(r'^ujian/(?P<pk>[0-9a-f-]+)/(?P<idp>[0-9]+)/?$', views.UjianPertanyaanDetail.as_view(), name='ujian-soal'),
+    url(r'^ujian/(?P<pk>[0-9a-f-]+)/?$', views.UjianSoalURLList.as_view(), name='ujian-detail'),
+    url(r'^ujian/(?P<pk>[0-9a-f-]+)/(?P<idp>[0-9]+)/?$', views.UjianSoalDetail.as_view(), name='ujian-soal'),
 ]

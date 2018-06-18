@@ -104,7 +104,7 @@ class PertanyaanSerializer(serializers.ModelSerializer):
         model = Pertanyaan
         fields = ('id', 'text', 'jawaban')
 
-class PertanyaanUrlSerializer(serializers.ModelSerializer):
+class SoalUrlSerializer(serializers.ModelSerializer):
     url = ParameterisedHyperlinkedIdentityField(view_name="sekolah:ujian-soal", lookup_fields=(('ujian.id_ujian', 'pk'), ('id', 'idp')), read_only=True)
     class Meta:
         model = Pertanyaan
