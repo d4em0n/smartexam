@@ -56,7 +56,7 @@ class GuruDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class UjianList(generics.ListCreateAPIView):
     serializer_class = UjianSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, IsGuruOrReadOnly)
 
     def get_queryset(self):
         queryset = Ujian.objects.all()
@@ -68,10 +68,13 @@ class UjianList(generics.ListCreateAPIView):
         else:
             return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(pembuat=self.request.user.guru)
+
 
 class UjianDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UjianSerializer
-    permissions_classes = (permissions.IsAuthenticated,)
+    permissions_classes = (permissions.IsAuthenticated, IsGuruOrReadOnly)
     lookup_field = 'id_ujian'
 
     def get_queryset(self):
@@ -95,6 +98,12 @@ class PertanyaanList(generics.ListCreateAPIView):
 
     def get_serializer_context(self):
         return {'request': self.request}
+
+    def perform_create(self, serializer):
+        id_ujian = self.kwargs['id_ujian']
+        print(id_ujian)
+        ujian = Ujian.objects.get(id_ujian=id_ujian)
+        serializer.save(ujian=ujian)
 #   permission_classes = (IsOwnerOrReadOnly,)
 
 
@@ -122,6 +131,11 @@ class JawabanList(generics.ListCreateAPIView):
         id_ujian = self.kwargs['id_ujian']
         id_pertanyaan = self.kwargs['id_pertanyaan']
         return queryset.filter(pertanyaan__id=id_pertanyaan, pertanyaan__ujian__id_ujian=id_ujian)
+
+    def perform_create(self, serializer):
+        id_pertanyaan = self.kwargs['id_pertanyaan']
+        pertanyaan = Pertanyaan.objects.get(id=id_pertanyaan)
+        serializer.save(pertanyaan=pertanyaan)
 
 
 class JawabanDetail(generics.RetrieveUpdateDestroyAPIView):

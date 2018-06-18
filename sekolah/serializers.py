@@ -76,6 +76,7 @@ class KelasSerializer(serializers.ModelSerializer):
 
 
 class JawabanSerializer(serializers.ModelSerializer):
+    pertanyaan = serializers.IntegerField(write_only=True, required=False)
 
     def __init__(self,  *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -83,22 +84,23 @@ class JawabanSerializer(serializers.ModelSerializer):
             request = self.context['request']
             if request.user.is_authenticated and request.user.is_guru:
                 print("ini guru")
-                self.fields['is_benar'] = serializers.BooleanField()
+                self.fields['is_benar'] = serializers.BooleanField(required=False)
         except KeyError:
             pass
 
     class Meta:
         model = Jawaban
-        fields = ('id', 'text')
+        fields = ('id', 'pertanyaan', 'text')
 
 
 class PertanyaanSerializer(serializers.ModelSerializer):
+    ujian = serializers.UUIDField(format='hex_verbose', write_only=True, required=False)
     #jawaban = JawabanSerializer(many=True)
     #url = ParameterisedHyperlinkedIdentityField(view_name="sekolah:ujian-soal", lookup_fields=(('ujian.id_ujian', 'pk'), ('id', 'idp')), read_only=True)
 
     class Meta:
         model = Pertanyaan
-        fields = ('id', 'text')
+        fields = ('id', 'ujian', 'text')
 
 class UjianSerializer(serializers.ModelSerializer):
     pembuat = serializers.CharField(source='pembuat.user.username', required=False)
