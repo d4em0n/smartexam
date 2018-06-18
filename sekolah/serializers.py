@@ -102,6 +102,15 @@ class PertanyaanSerializer(serializers.ModelSerializer):
         model = Pertanyaan
         fields = ('id', 'ujian', 'text')
 
+
+class FullPertanyaanSerializer(serializers.ModelSerializer):
+    jawaban = JawabanSerializer(many=True)
+
+    class Meta:
+        model = Pertanyaan
+        fields = ('id', 'text', 'jawaban')
+
+
 class UjianSerializer(serializers.ModelSerializer):
     pembuat = serializers.CharField(source='pembuat.user.username', required=False)
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=False)
