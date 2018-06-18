@@ -11,8 +11,14 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 class IsPembuatUjianOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
-        pk = self.request.pk
+        pk = request.pk
         print(pk)
-        if request.method in permissions.SAFE_METHOD:
+        if request.method in permissions.SAFE_METHODS:
             return True
         return request.user.is_guru and request.user.guru.ujian_set.filter(id_ujian=pk).exists()
+
+class IsGuruOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user.is_authenticated and request.user.is_guru
