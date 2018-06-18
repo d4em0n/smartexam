@@ -8,11 +8,11 @@ django.setup()
 
 
 def add_pertanyaan(ujian, text):
-    return Pertanyaan.objects.get_or_create(text=text, ujian=ujian)
+    return Pertanyaan.objects.get_or_create(text=text, ujian=ujian)[0]
 
 
 def add_jawaban(pertanyaan, jawaban):
-    return Jawaban.objects.get_or_create(pertanyaan=pertanyaan, text=jawaban)
+    return Jawaban.objects.get_or_create(pertanyaan=pertanyaan, text=jawaban)[0]
 
 
 def add_tanya_jawab(ujian, tanya, jawab):
