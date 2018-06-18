@@ -90,6 +90,7 @@ class UjianDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class PertanyaanList(generics.ListCreateAPIView):
     serializer_class = PertanyaanSerializer
+    permissions_classes = (permissions.IsAuthenticated, IsGuruOrReadOnly)
 
     def get_queryset(self):
         queryset = Pertanyaan.objects.all()
@@ -110,6 +111,7 @@ class PertanyaanList(generics.ListCreateAPIView):
 class PertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pertanyaan.objects.all()
     serializer_class = PertanyaanSerializer
+    permissions_classes = (permissions.IsAuthenticated, IsGuruOrReadOnly)
 
     def get_serializer_context(self):
         return {'request': self.request}
@@ -122,6 +124,7 @@ class PertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class JawabanList(generics.ListCreateAPIView):
     serializer_class = JawabanSerializer
+    permissions_classes = (permissions.IsAuthenticated, IsGuruOrReadOnly)
 
     def get_serializer_context(self):
         return {'request': self.request}
