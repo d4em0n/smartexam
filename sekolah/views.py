@@ -89,7 +89,6 @@ class UjianDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class PertanyaanList(generics.ListCreateAPIView):
-    serializer_class = PertanyaanSerializer
     permissions_classes = (permissions.IsAuthenticated, IsGuruOrReadOnly)
 
     def get_queryset(self):
@@ -105,6 +104,14 @@ class PertanyaanList(generics.ListCreateAPIView):
 
     def get_serializer_context(self):
         return {'request': self.request}
+
+    def get_serializer_class(self):
+        try:
+            _ = self.request.query_params['full']
+            return FullPertanyaanSerializer
+        except KeyError:
+            pass
+        return PertanyaanSerializer
 
     def perform_create(self, serializer):
         id_ujian = self.kwargs['id_ujian']
@@ -145,7 +152,13 @@ class JawabanList(generics.ListCreateAPIView):
         queryset = Jawaban.objects.all()
         id_ujian = self.kwargs['id_ujian']
         id_pertanyaan = self.kwargs['id_pertanyaan']
-        return queryset.filter(pertanyaan__id=id_pertanyaan, pertanyaan__ujian__id_ujian=id_ujian)
+        user = self.request.user
+        if user.is_guru:
+            return queryset.filter(pertanyaan_id=id_pertanyaan, pertanyaan__ujian__pembuat__user=user, pertanyaan__ujian__id_ujian=id_ujian)
+        elif user.is_siswa:
+            return queryset.filter(pertanyaan_id=id_pertanyaan, pertanyaan__ujian__pembuat__kelas_ajar=user.siswa.kelas, pertanyaan__ujian__id_ujian=id_ujian)
+        else:
+            return queryset
 
     def perform_create(self, serializer):
         id_pertanyaan = self.kwargs['id_pertanyaan']
