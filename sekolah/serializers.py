@@ -94,31 +94,21 @@ class JawabanSerializer(serializers.ModelSerializer):
 
 class PertanyaanSerializer(serializers.ModelSerializer):
     #jawaban = JawabanSerializer(many=True)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        """ JawabanSerializer harus mendapatkan context """
-        self.fields['jawaban'] = JawabanSerializer(many=True, context=self.context)
+    #url = ParameterisedHyperlinkedIdentityField(view_name="sekolah:ujian-soal", lookup_fields=(('ujian.id_ujian', 'pk'), ('id', 'idp')), read_only=True)
 
     class Meta:
         model = Pertanyaan
-        fields = ('id', 'text', 'jawaban')
-
-class SoalUrlSerializer(serializers.ModelSerializer):
-    url = ParameterisedHyperlinkedIdentityField(view_name="sekolah:ujian-soal", lookup_fields=(('ujian.id_ujian', 'pk'), ('id', 'idp')), read_only=True)
-    class Meta:
-        model = Pertanyaan
-        fields = ('url',)
+        fields = ('id', 'text')
 
 class UjianSerializer(serializers.ModelSerializer):
     pembuat = serializers.CharField(source='pembuat.user.username', required=False)
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=False)
     pelajaran = serializers.CharField(source='pembuat.mengajar.nama', required=False)
-    url = ParameterisedHyperlinkedIdentityField(view_name="sekolah:ujian-detail", lookup_fields=(('id_ujian', 'pk'),), read_only=True)
+    #url = ParameterisedHyperlinkedIdentityField(view_name="sekolah:ujian-detail", lookup_fields=(('id_ujian', 'pk'),), read_only=True)
 
     class Meta:
         model = Ujian
-        fields = ('id', 'created_at', 'deskripsi', 'pembuat', 'pelajaran', 'id_ujian', 'url')
+        fields = ('id', 'created_at', 'deskripsi', 'pembuat', 'pelajaran', 'id_ujian')
         extra_kwargs = {
             'created_at': {
                 'required': False

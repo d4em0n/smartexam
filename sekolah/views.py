@@ -68,41 +68,70 @@ class UjianList(generics.ListCreateAPIView):
         else:
             return queryset
 
-class UjianSoalURLList(generics.ListCreateAPIView):
-    serializer_class = SoalUrlSerializer
+
+class UjianDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UjianSerializer
+    permissions_classes = (permissions.IsAuthenticated,)
+    lookup_field = 'id_ujian'
+
+    def get_queryset(self):
+        queryset = Ujian.objects.all()
+        user = self.request.user
+        if user.is_guru:
+            return queryset.filter(pembuat__user=user)
+        elif user.is_siswa:
+            return queryset.filter(pembuat__kelas_ajar=user.siswa.kelas)
+        else:
+            return queryset
+
+
+class PertanyaanList(generics.ListCreateAPIView):
+    serializer_class = PertanyaanSerializer
 
     def get_queryset(self):
         queryset = Pertanyaan.objects.all()
-        pk = self.kwargs['pk']
-        return queryset.filter(ujian__id_ujian=pk)
+        id_ujian = self.kwargs['id_ujian']
+        return queryset.filter(ujian__id_ujian=id_ujian)
 
     def get_serializer_context(self):
         return {'request': self.request}
 #   permission_classes = (IsOwnerOrReadOnly,)
 
 
-class UjianSoalDetail(generics.RetrieveUpdateDestroyAPIView):
+class PertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pertanyaan.objects.all()
     serializer_class = PertanyaanSerializer
 
     def get_serializer_context(self):
         return {'request': self.request}
 
-    def get_object(self):
-        queryset = self.get_queryset()
-        id_ujian = self.kwargs['pk']
-        id_pertanyaan = self.kwargs['idp']
-        return get_object_or_404(queryset, id=id_pertanyaan, ujian__id_ujian=id_ujian)
+    def get_queryset(self):
+        queryset = self.queryset
+        id_ujian = self.kwargs['id_ujian']
+        return queryset.filter(ujian__id_ujian=id_ujian)
 
-class UjianJawabanDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Jawaban.objects.all()
+
+class JawabanList(generics.ListCreateAPIView):
     serializer_class = JawabanSerializer
 
     def get_serializer_context(self):
         return {'request': self.request}
 
-    def get_object(self):
-        queryset = self.get_queryset()
-        id_ujian = self.kwargs['pk']
-        id_pertanyaan = self.kwargs['idp']
-        id_jawaban = self.kwargs['idj']
+    def get_queryset(self):
+        queryset = Jawaban.objects.all()
+        id_ujian = self.kwargs['id_ujian']
+        id_pertanyaan = self.kwargs['id_pertanyaan']
+        return queryset.filter(pertanyaan__id=id_pertanyaan, pertanyaan__ujian__id_ujian=id_ujian)
+
+
+class JawabanDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = JawabanSerializer
+
+    def get_serializer_context(self):
+        return {'request': self.request}
+
+    def get_queryset(self):
+        queryset = Jawaban.objects.all()
+        id_ujian = self.kwargs['id_ujian']
+        id_pertanyaan = self.kwargs['id_pertanyaan']
+        return queryset.filter(pertanyaan__id=id_pertanyaan, pertanyaan__ujian__id_ujian=id_ujian)
