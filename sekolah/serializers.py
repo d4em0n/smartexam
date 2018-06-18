@@ -95,9 +95,9 @@ class PertanyaanUrlSerializer(serializers.ModelSerializer):
         fields = ('url',)
 
 class UjianSerializer(serializers.ModelSerializer):
-    pembuat = serializers.CharField(source='pembuat.user.username')
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-    pelajaran = serializers.CharField(source='pembuat.mengajar.nama')
+    pembuat = serializers.CharField(source='pembuat.user.username', required=False)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=False)
+    pelajaran = serializers.CharField(source='pembuat.mengajar.nama', required=False)
     url = ParameterisedHyperlinkedIdentityField(view_name="sekolah:ujian-detail", lookup_fields=(('id_ujian', 'pk'),), read_only=True)
 
     class Meta:
@@ -117,17 +117,6 @@ class UjianSerializer(serializers.ModelSerializer):
         if not is_username_exists(pembuat):
             raise serializers.ValidationError("Pembuat tidak ada")
         return pembuat
-
-    def create(self, validated_data):
-        pembuat = validated_data.pop('pembuat').pop('user').pop('username')
-        guru = Guru.objects.get(user__username=pembuat)
-        deskripsi = validated_data.pop('deskripsi', '')
-        return Ujian.objects.create(deskripsi=deskripsi, pembuat=guru)
-
-    def update(self, instance, validated_data):
-        pembuat = validated_data.pop('pembuat').pop('user').pop('username')
-        guru = Guru.objects.get(user__username=pembuat)
-        return Ujian.objects.update_or_create(id=instance.pk, defaults=dict(deskripsi=validated_data['deskripsi'], pembuat=guru))
 
 
 def cek_kelas(kelas):
