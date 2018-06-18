@@ -75,6 +75,9 @@ class UjianPertanyaanList(generics.ListCreateAPIView):
         queryset = Pertanyaan.objects.all()
         pk = self.kwargs['pk']
         return queryset.filter(ujian__id_ujian=pk)
+
+    def get_serializer_context(self):
+        return {'request': self.request}
 #   permission_classes = (IsOwnerOrReadOnly,)
 
 
@@ -82,9 +85,11 @@ class UjianPertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pertanyaan.objects.all()
     serializer_class = PertanyaanSerializer
 
+    def get_serializer_context(self):
+        return {'request': self.request}
+
     def get_object(self):
         queryset = self.get_queryset()
         id_ujian = self.kwargs['pk']
         id_pertanyaan = self.kwargs['idp']
-        print(id_pertanyaan)
         return get_object_or_404(queryset, id=id_pertanyaan, ujian__id_ujian=id_ujian)
