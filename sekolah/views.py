@@ -93,3 +93,16 @@ class UjianPertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
         id_ujian = self.kwargs['pk']
         id_pertanyaan = self.kwargs['idp']
         return get_object_or_404(queryset, id=id_pertanyaan, ujian__id_ujian=id_ujian)
+
+class UjianJawabanDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Jawaban.objects.all()
+    serializer_class = JawabanSerializer
+
+    def get_serializer_context(self):
+        return {'request': self.request}
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        id_ujian = self.kwargs['pk']
+        id_pertanyaan = self.kwargs['idp']
+        id_jawaban = self.kwargs['idj']
