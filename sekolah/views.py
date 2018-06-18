@@ -94,8 +94,14 @@ class PertanyaanList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = Pertanyaan.objects.all()
+        user = self.request.user
         id_ujian = self.kwargs['id_ujian']
-        return queryset.filter(ujian__id_ujian=id_ujian)
+        if user.is_guru:
+            return queryset.filter(ujian__pembuat__user=user, ujian__id_ujian=id_ujian)
+        elif user.is_siswa:
+            return queryset.filter(ujian__pembuat__kelas_ajar=user.siswa.kelas, ujian__id_ujian=id_ujian)
+        else:
+            return queryset
 
     def get_serializer_context(self):
         return {'request': self.request}
@@ -117,9 +123,15 @@ class PertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
         return {'request': self.request}
 
     def get_queryset(self):
-        queryset = self.queryset
+        queryset = Pertanyaan.objects.all()
+        user = self.request.user
         id_ujian = self.kwargs['id_ujian']
-        return queryset.filter(ujian__id_ujian=id_ujian)
+        if user.is_guru:
+            return queryset.filter(ujian__pembuat__user=user, ujian__id_ujian=id_ujian)
+        elif user.is_siswa:
+            return queryset.filter(ujian__pembuat__kelas_ajar=user.siswa.kelas, ujian__id_ujian=id_ujian)
+        else:
+            return queryset
 
 
 class JawabanList(generics.ListCreateAPIView):
