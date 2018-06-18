@@ -77,6 +77,16 @@ class KelasSerializer(serializers.ModelSerializer):
 
 class JawabanSerializer(serializers.ModelSerializer):
 
+    def __init__(self,  *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        try:
+            request = self.context['request']
+            if request.user.is_authenticated and request.user.is_guru:
+                print("ini guru")
+                self.fields['is_benar'] = serializers.BooleanField()
+        except KeyError:
+            pass
+
     class Meta:
         model = Jawaban
         fields = ('id', 'text')
