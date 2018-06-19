@@ -81,7 +81,7 @@ class Ujian(models.Model):
     deskripsi = models.CharField(max_length=128)
     id_ujian = models.UUIDField(default=uuid.uuid4, unique=True)
     pembuat = models.ForeignKey(Guru, on_delete=models.CASCADE)
-    is_akitf = models.BooleanField(default=False)
+    is_aktif = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
