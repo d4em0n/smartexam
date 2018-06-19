@@ -10,10 +10,10 @@ class GuruUjian extends React.Component {
     render() {
         return (
             <HashRouter basename="guru/ujian">
-            <div>
-                <Route exact path="/" component={GuruUjianIndex} />
-                <Route path="/:ujian_id" component={GuruUjianDetail} />
-            </div>
+                <Switch>
+                    <Route exact path="/" component={GuruUjianIndex} />
+                    <Route path="/:ujian_id" component={GuruUjianDetail} />
+                </Switch>
             </HashRouter>
         );
     }
