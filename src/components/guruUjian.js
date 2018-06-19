@@ -126,7 +126,7 @@ class GuruUjianIndex extends React.Component {
                             }
                             return (
                                 <tr key={i}>
-                                    <th><Link to={`/${data.id}`} className="blue-text">{data.deskripsi}</Link></th>
+                                    <th><Link to={`/${data.id_ujian}`} className="blue-text">{data.deskripsi}</Link></th>
                                     <th>{data.created_at}</th>
                                     <th>{data.pelajaran}</th>
                                     <th><Badge color={col}>{aktif}</Badge></th>
