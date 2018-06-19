@@ -119,7 +119,7 @@ class UjianSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ujian
-        fields = ('id', 'created_at', 'deskripsi', 'pembuat', 'pelajaran', 'id_ujian')
+        fields = ('id', 'created_at', 'deskripsi', 'pembuat', 'pelajaran', 'id_ujian', 'is_aktif')
         extra_kwargs = {
             'created_at': {
                 'required': False
