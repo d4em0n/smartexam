@@ -104,7 +104,10 @@ class PertanyaanSerializer(serializers.ModelSerializer):
 
 
 class FullPertanyaanSerializer(serializers.ModelSerializer):
-    jawaban = JawabanSerializer(many=True)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        """ JawabanSerializer harus mendapatkan context """
+        self.fields['jawaban'] = JawabanSerializer(many=True, context=self.context)
 
     class Meta:
         model = Pertanyaan
