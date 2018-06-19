@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Row, Col, Button, Table, Fa, Badge} from 'mdbreact';
 import {ListGroup, ListGroupItem, Input, FormInline} from 'mdbreact';
-import {getUjianDetail, getPertanyaanFull} from '../util/api';
+import {getUjianDetail, getPertanyaanFull, SetJawabanBenar} from '../util/api';
 
 function InputRadio(props) {
     return (
@@ -35,8 +35,9 @@ class GuruUjianDetail extends React.Component {
     }
 
     gantiJawaban(id_pertanyaan, id_jawaban) {
-        console.log(`${id_pertanyaan} ${id_jawaban}`);
+        SetJawabanBenar(this.state.ujian.id_ujian, id_pertanyaan, id_jawaban);
     }
+
     render() {
         let status = "Inactive";
         let status_color = "danger";

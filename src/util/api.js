@@ -36,6 +36,14 @@ export function getUjianDetail(id_ujian) {
     });
 }
 
+export function SetJawabanBenar(id_ujian, id_pertanyaan, id_jawaban) {
+    let config = getConfig();
+    let jawabanUrl = `/api/ujian/${id_ujian}/pertanyaan/${id_pertanyaan}/jawaban/${id_jawaban}/set_true`;
+    return axios.put(jawabanUrl, {}, config).then(response => {
+        return response.data;
+    })
+}
+
 export function getPertanyaanFull(id_ujian) {
     let config = getConfig();
     let ujianUrl = `/api/ujian/${id_ujian}/pertanyaan?full`;
