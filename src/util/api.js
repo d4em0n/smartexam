@@ -28,6 +28,22 @@ export function getUjian() {
     });
 }
 
+export function getUjianDetail(id_ujian) {
+    let config = getConfig();
+    let ujianUrl = `/api/ujian/${id_ujian}`;
+    return axios.get(ujianUrl, config).then(response => {
+        return response.data
+    });
+}
+
+export function getPertanyaanFull(id_ujian) {
+    let config = getConfig();
+    let ujianUrl = `/api/ujian/${id_ujian}/pertanyaan?full`;
+    return axios.get(ujianUrl, config).then(response => {
+        return response.data
+    });
+}
+
 export function addUjian(deskripsi) {
     let config = getConfig();
     let data = { deskripsi };
