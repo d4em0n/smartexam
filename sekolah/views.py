@@ -4,6 +4,7 @@ from sekolah.models import *
 from rest_framework import generics
 from django.http import Http404
 from rest_framework import permissions
+from rest_framework.response import Response
 from .permissions import *
 
 
@@ -140,6 +141,35 @@ class PertanyaanDetail(generics.RetrieveUpdateDestroyAPIView):
         else:
             return queryset
 
+class SetJawabanBenar(generics.UpdateAPIView):
+    permissions_classes = (permissions.IsAuthenticated, IsGuruOrReadOnly)
+
+    def get_queryset(self):
+        queryset = Pertanyaan.objects.all()
+        user = self.request.user
+        id_ujian = self.kwargs['id_ujian']
+        if user.is_guru:
+            return queryset.filter(ujian__pembuat__user=user, ujian__id_ujian=id_ujian)
+        elif user.is_siswa:
+            return queryset.filter(ujian__pembuat__kelas_ajar=user.siswa.kelas, ujian__id_ujian=id_ujian)
+        else:
+            return queryset
+
+    def put(self, request, format=None, **kwargs):
+        self.kwargs = kwargs
+
+        id_ujian = kwargs['id_ujian']
+        id_pertanyaan = kwargs['pk']
+        id_jawaban = int(kwargs['id_jawaban'])
+
+        jawaban_list = self.get_object().jawaban.all()
+        for jawaban in jawaban_list:
+            jawaban.is_benar = False
+            if jawaban.id == id_jawaban:
+                jawaban.is_benar = True
+            jawaban.save()
+
+        return Response({'hello': 'world'})
 
 class JawabanList(generics.ListCreateAPIView):
     serializer_class = JawabanSerializer

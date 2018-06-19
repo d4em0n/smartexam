@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^ujian/(?P<id_ujian>[0-9a-f-]+)/pertanyaan/(?P<pk>[0-9]+)/?$', views.PertanyaanDetail.as_view(), name='ujian-soal'),
     url(r'^ujian/(?P<id_ujian>[0-9a-f-]+)/pertanyaan/(?P<id_pertanyaan>[0-9]+)/jawaban/?$', views.JawabanList.as_view(), name='ujian-soal'),
     url(r'^ujian/(?P<id_ujian>[0-9a-f-]+)/pertanyaan/(?P<id_pertanyaan>[0-9]+)/jawaban/(?P<pk>[0-9]+)/?$', views.JawabanDetail.as_view(), name='ujian-soal'),
+    url(r'^ujian/(?P<id_ujian>[0-9a-f-]+)/pertanyaan/(?P<pk>[0-9]+)/jawaban/(?P<id_jawaban>[0-9]+)/set_true?$', views.SetJawabanBenar.as_view()),
     #url(r'^ujian/(?P<pk>[0-9]+)/?$', views.UjianDetail.as_view()),
 ]
