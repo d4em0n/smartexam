@@ -100,7 +100,9 @@ class GuruUjianDetail extends React.Component {
                                                     <ListGroupItem key={j}>
                                                         <InputRadio id={`radio${data.id}${data_jawaban.id}`}
                                                             name={`radio${data.id}`}
-                                                            label={data_jawaban.text}/>
+                                                            label={data_jawaban.text}
+                                                            checked={data_jawaban.is_benar}
+                                                        />
                                                         <div className="float-right">
                                                             <span>Edit</span> <span>Delete</span>
                                                         </div>
