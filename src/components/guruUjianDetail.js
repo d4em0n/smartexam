@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Row, Col, Button, Table, Fa, Badge} from 'mdbreact';
 import {ListGroup, ListGroupItem, Input, FormInline} from 'mdbreact';
+import {getUjianDetail, getPertanyaanFull} from '../util/api';
 
 function InputRadio(props) {
     return (
@@ -15,7 +16,31 @@ function InputRadio(props) {
 }
 
 class GuruUjianDetail extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ujian: {},
+            pertanyaan: []
+        };
+    }
+
+    componentDidMount() {
+        let id_ujian = this.props.match.params.ujian_id;
+        let ujian_detail = getUjianDetail(id_ujian);
+        let pertanyaan_detail = getPertanyaanFull(id_ujian);
+        Promise.all([ujian_detail, pertanyaan_detail]).then(([ujian, pertanyaan]) => {
+            console.log(pertanyaan);
+            this.setState({ujian, pertanyaan});
+        });
+    }
+
     render() {
+        let status = "Inactive";
+        let status_color = "danger";
+        if(this.state.ujian.is_aktif) {
+            status = "Active";
+            status_color = "success";
+        }
         return (
             <div className="text-dark">
                 <Row>
@@ -24,9 +49,9 @@ class GuruUjianDetail extends React.Component {
                             <Fa icon="tasks" size="5x" />
                         </div>
                         <div className="tasks-detail-text pt-4 ml-3">
-                            <strong>Description: </strong><span>Ulangan Harian Bahasa Indonesia</span><br/>
-                            <strong>Created at: </strong><span>2018-02-12 09:12</span><br/>
-                            <strong>Status: </strong><span><Badge color="success">Active</Badge></span><br/>
+                            <strong>Description: </strong><span>{this.state.ujian.deskripsi}</span><br/>
+                            <strong>Created at: </strong><span>{this.state.ujian.created_at}</span><br/>
+                            <strong>Status: </strong><span><Badge color={status_color}>{status}</Badge></span><br/>
                         </div>
                     </Col>
                 </Row>
@@ -61,31 +86,35 @@ class GuruUjianDetail extends React.Component {
                     <Col sm="12" className="pt-5">
                         <h2>Questions</h2>
                         <ListGroup>
-                            <ListGroupItem>
-                                <strong>1. </strong>
-                                Cras justo odio
-                                <div className="float-right">
-                                    <span>Edit</span> <span>Delete</span>
-                                </div>
-                                <ListGroup className="grup-jawaban mt-2">
-                                    <ListGroupItem>
-                                        <InputRadio id="radio01" name="radio" label="Use our position utilities to place"/>
+                            {this.state.pertanyaan.map((data, i) => {
+                                return (
+                                    <ListGroupItem key={i}>
+                                        <strong>{i+1}. </strong>
+                                        {data.text}
                                         <div className="float-right">
                                             <span>Edit</span> <span>Delete</span>
                                         </div>
+                                        <ListGroup className="grup-jawaban mt-2">
+                                            {data.jawaban.map((data_jawaban, j) => {
+                                                return (
+                                                    <ListGroupItem key={j}>
+                                                        <InputRadio id={`radio${data.id}${data_jawaban.id}`}
+                                                            name={`radio${data.id}`}
+                                                            label={data_jawaban.text}/>
+                                                        <div className="float-right">
+                                                            <span>Edit</span> <span>Delete</span>
+                                                        </div>
+                                                    </ListGroupItem>
+                                                );
+                                            })}
+                                            <ListGroupItem className="input-jawaban">
+                                                <input placeholder="Tambah Jawaban" className="px-2"/>
+                                                <Button size="sm" color="primary">Add</Button>
+                                            </ListGroupItem>
+                                        </ListGroup>
                                     </ListGroupItem>
-                                    <ListGroupItem>
-                                        <InputRadio id="radio02" name="radio" label="Ini jawaban kedua"/>
-                                        <div className="float-right">
-                                            <span>Edit</span> <span>Delete</span>
-                                        </div>
-                                    </ListGroupItem>
-                                    <ListGroupItem className="input-jawaban">
-                                        <input placeholder="Tambah Jawaban" className="px-2"/>
-                                        <Button size="sm" color="primary">Add</Button>
-                                    </ListGroupItem>
-                                </ListGroup>
-                            </ListGroupItem>
+                                );
+                            })}
                             <ListGroupItem className="input-soal">
                                 <input placeholder="Tambah Pertanyaan" className="px-2"/>
                                 <Button size="sm" color="primary">Add</Button>
