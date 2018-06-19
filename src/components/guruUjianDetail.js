@@ -34,6 +34,9 @@ class GuruUjianDetail extends React.Component {
         });
     }
 
+    gantiJawaban(id_pertanyaan, id_jawaban) {
+        console.log(`${id_pertanyaan} ${id_jawaban}`);
+    }
     render() {
         let status = "Inactive";
         let status_color = "danger";
@@ -101,7 +104,8 @@ class GuruUjianDetail extends React.Component {
                                                         <InputRadio id={`radio${data.id}${data_jawaban.id}`}
                                                             name={`radio${data.id}`}
                                                             label={data_jawaban.text}
-                                                            checked={data_jawaban.is_benar}
+                                                            defaultChecked={data_jawaban.is_benar}
+                                                            onChange={() => this.gantiJawaban(data.id, data_jawaban.id)}
                                                         />
                                                         <div className="float-right">
                                                             <span>Edit</span> <span>Delete</span>
