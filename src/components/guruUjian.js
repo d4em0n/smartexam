@@ -31,6 +31,8 @@ class GuruUjianIndex extends React.Component {
             ujianList: []
         };
         this.toggle = this.toggle.bind(this);
+        this.toggle_deleteUjian = this.toggle_deleteUjian.bind(this);
+        this.toggle_editUjian = this.toggle_editUjian.bind(this);
         this.addUjianHandler = this.addUjianHandler.bind(this);
     }
 
@@ -78,6 +80,14 @@ class GuruUjianIndex extends React.Component {
                 modal_editUjian: !this.state.modal_editUjian
             })
         })
+    }
+
+    toggle_deleteUjian() {
+        this.setState({modal_deleteUjian: !this.state.modal_deleteUjian});
+    }
+
+    toggle_editUjian() {
+        this.setState({modal_editUjian: !this.state.modal_editUjian});
     }
 
     toggle() {
