@@ -121,7 +121,7 @@ class GuruUjianIndex extends React.Component {
                             let col = "danger";
                             let aktif = "Inactive";
                             if(data.is_aktif) {
-                                col = "active";
+                                col = "success";
                                 aktif = "Active";
                             }
                             return (
@@ -168,6 +168,14 @@ class GuruUjianIndex extends React.Component {
                     <ModalBody>
                         <strong>Ganti Deskripsi Ujian</strong>
                         <Input label="Deskripsi Ujian" onChange={(e) => this.state.tmp_edit.deskripsi = e.target.value} value={this.state.tmp_edit.deskripsi}/>
+                        <div className="d-inline-flex">
+                            <span className="mr-2">Status : </span>
+                            <label className="switch">
+                                <input type="checkbox" defaultChecked={this.state.tmp_edit.is_aktif}
+                                    onChange={() => (this.state.tmp_edit.is_aktif = !this.state.tmp_edit.is_aktif)}/>
+                                <span className="slider round"></span>
+                            </label>
+                        </div>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onClick={this.toggle_editUjian}>Cancel</Button>
