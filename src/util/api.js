@@ -80,3 +80,65 @@ export function editUjian(data_ujian) {
         return response.data
     })
 }
+
+export function addPertanyaan(id_ujian, pertanyaan) {
+    let config = getConfig();
+    let pertanyaanUrl = `/api/ujian/${id_ujian}/pertanyaan?full`;
+    let data = {
+        text: pertanyaan
+    };
+    return axios.post(pertanyaanUrl, data, config).then(response => {
+        return response.data
+    })
+}
+
+export function deletePertanyaan(id_ujian, id_pertanyaan) {
+    let config = getConfig();
+    let pertanyaanUrl = `/api/ujian/${id_ujian}/pertanyaan/${id_pertanyaan}`;
+    return axios.delete(pertanyaanUrl, config).then(response => {
+        return response.data;
+    })
+}
+
+export function editPertanyaan(id_ujian, id_pertanyaan, newtext) {
+    let config = getConfig();
+    let pertanyaanUrl = `/api/ujian/${id_ujian}/pertanyaan/${id_pertanyaan}`;
+    let data = {
+        text: newtext
+    };
+    return axios.put(pertanyaanUrl, data, config).then(response => {
+        return response.data;
+    })
+}
+
+export function addJawaban(id_ujian, id_pertanyaan, jawaban) {
+    let config = getConfig();
+    let jawabanUrl = `/api/ujian/${id_ujian}/pertanyaan/${id_pertanyaan}/jawaban`;
+    let data = {
+        text: jawaban,
+        is_benar: false
+    }
+    return axios.post(jawabanUrl, data, config).then(response => {
+        return response.data;
+    });
+}
+
+export function deleteJawaban(id_ujian, id_pertanyaan, id_jawaban) {
+    let config = getConfig();
+    let jawabanUrl = `/api/ujian/${id_ujian}/pertanyaan/${id_pertanyaan}/jawaban/${id_jawaban}`;
+    return axios.delete(jawabanUrl, config).then(response => {
+        return response.data;
+    });
+}
+
+export function editJawaban(id_ujian, id_pertanyaan, id_jawaban, newJawaban) {
+    let config = getConfig();
+    let jawabanUrl = `/api/ujian/${id_ujian}/pertanyaan/${id_pertanyaan}/jawaban/${id_jawaban}`;
+    let data = {
+        text: newJawaban.text,
+        is_benar: newJawaban.is_benar
+    };
+    return axios.put(jawabanUrl, data, config).then(response => {
+        return response.data;
+    })
+}
