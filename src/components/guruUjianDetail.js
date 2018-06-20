@@ -48,19 +48,22 @@ class GuruUjianDetail extends React.Component {
 
     addPertanyaanHandler(evt) {
         evt.preventDefault();
-        let pertanyaan = this.refs.newPertanyaan.value;
+        let el = this.refs.newPertanyaan;
+        let pertanyaan = el.value;
         let id_ujian = this.state.ujian.id_ujian;
         addPertanyaan(id_ujian, pertanyaan).then(data => {
             console.log(data);
             this.setState({
                 pertanyaan: [...this.state.pertanyaan, data],
             });
+            el.value = "";
         });
     }
 
     addJawabanHandler(evt, id_pertanyaan) {
         evt.preventDefault();
-        let jawaban = this.refs[`newJawaban_${id_pertanyaan}`].value;
+        let el = this.refs[`newJawaban_${id_pertanyaan}`];
+        let jawaban = el.value;
         let id_ujian = this.state.ujian.id_ujian;
         console.log(jawaban);
         addJawaban(id_ujian, id_pertanyaan, jawaban).then(data => {
@@ -73,6 +76,7 @@ class GuruUjianDetail extends React.Component {
                     return pertanyaan;
                 })
             });
+            el.value = "";
         });
     }
 
