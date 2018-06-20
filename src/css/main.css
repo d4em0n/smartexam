@@ -253,3 +253,11 @@
 .inline {
     display: inline-block;
 }
+
+.like-link {
+    cursor: pointer;
+}
+
+.like-link:hover {
+    text-decoration: underline;
+}
