@@ -54,8 +54,8 @@ class Kelas(models.Model):
         return self.nama
 
 class KelasAjar(models.Model):
-    guru = models.ForeignKey(Guru, on_delete=models.CASCADE)
-    kelas = models.ForeignKey(Kelas, on_delete=models.CASCADE)
+    guru = models.ForeignKey(Guru, on_delete=models.CASCADE, related_name='kelasajar')
+    kelas = models.ForeignKey(Kelas, on_delete=models.CASCADE, related_name='guruajar')
 
 
 
