@@ -12,6 +12,7 @@ admin.site.register(Pertanyaan)
 admin.site.register(Jawaban)
 admin.site.register(AmbilUjian)
 admin.site.register(JawabanSiswa)
+admin.site.register(KelasAjar)
 
 
 # Register your models here.
