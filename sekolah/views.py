@@ -96,6 +96,13 @@ class PertanyaanList(generics.ListCreateAPIView):
         queryset = Pertanyaan.objects.all()
         user = self.request.user
         id_ujian = self.kwargs['id_ujian']
+
+        try:
+            _ = self.request.query_params['full']
+            queryset = queryset.prefetch_related('jawaban')
+        except KeyError:
+            pass
+
         if user.is_guru:
             return queryset.filter(ujian__pembuat__user=user, ujian__id_ujian=id_ujian)
         elif user.is_siswa:
