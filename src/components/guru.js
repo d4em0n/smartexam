@@ -58,7 +58,7 @@ class GuruDashboard extends React.Component {
         ];
     }
     componentWillMount() {
-        if(!this.profile || !this.profile.is_guru) {
+        if(!this.profile || this.profile.is_siswa) {
             window.location.hash = "/";
         }
     }
