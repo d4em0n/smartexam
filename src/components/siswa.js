@@ -6,6 +6,7 @@ import {store} from '../stores/store';
 import {unsetProfile} from '../actions/profile';
 import {unsetAuth} from '../actions/auth';
 import {Switch, Route, HashRouter, Link} from 'react-router-dom';
+import {getUjian} from '../util/api';
 import MulaiUjian from './mulaiUjian';
 
 class SiswaDashboard extends React.Component {
@@ -50,7 +51,7 @@ class SiswaDashboard extends React.Component {
                     </Navbar>
                     <Switch>
                         <Route exact path="/" component={DaftarUjian} />)} />
-                        <Route path="/ujian" component={MulaiUjian} />
+                        <Route path="/ujian/:id_ujian" component={MulaiUjian} />
                     </Switch>
                 </Container>
             </HashRouter>
@@ -61,40 +62,51 @@ class SiswaDashboard extends React.Component {
 class DaftarUjian extends React.Component {
     constructor(props) {
         super(props);
-        this.toggle = this.toggle.bind(this);
+        this.toggle = this.toggleUjianModal.bind(this);
         this.state = {
             modal: false,
+            ujianModal: {},
+            ujian: [],
         };
     }
-    toggle() {
+    componentDidMount() {
+        getUjian().then(data => {
+            console.log(data);
+            this.setState({ujian: data});
+        });
+    }
+    toggleUjianModal(ujian) {
         this.setState({
-            modal: !this.state.modal
+            modal: !this.state.modal,
+            ujianModal: ujian
         })
     }
     render() {
         return (
         <HashRouter basename="/siswa">
             <Container className="text-center pt-5">
-                <h2 class="title">Ujian yang tersedia</h2>
+                <h2 className="title">Ujian yang tersedia</h2>
                 <Row className="mt-5">
-                    <Col md="4" sm="6" onClick={this.toggle} className="text-center white-text z-depth-2 box-border bg-primary">
-                        <h5>Ulangan Tengah Semester Bahasa Indonesia</h5>
-                    </Col>
-                    <Col md="4" sm="6" className="box-border white-text default-color-dark z-depth-2">
-                        <h5>Ulangan Harian Bahasa Indonesia</h5>
-                    </Col>
-                    <Col md="4" sm="6" className="box-border white-text info-color-dark z-depth-2">
-                        <h5>Ulangan Harian Bahasa Indonesia</h5>
-                    </Col>
+                    {this.state.ujian.map((data, i) => {
+                        return (
+                            <Col key={i}
+                                md="4"
+                                sm="6"
+                                onClick={() => this.toggleUjianModal(data)}
+                                className="text-center white-text z-depth-2 box-border bg-primary">
+                            <h5>{data.deskripsi}</h5>
+                        </Col>
+                        )
+                    })}
                 </Row>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                 <ModalHeader toggle={this.toggle}>Ulangan Bahasa Indonesia</ModalHeader>
                 <ModalBody>
-                    Apakah anda yakin untuk memulai ujian ini?
+                    Apakah anda yakin untuk memulai "{this.state.ujianModal.deskripsi}" ini?
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger" onClick={this.toggle}>Cancel</Button>{' '}
-                    <Link to="/ujian"><Button color="success">Accept</Button></Link>
+                    <Button color="danger" onClick={() => this.toggleUjianModal("")}>Cancel</Button>{' '}
+                    <Link to={`/ujian/${this.state.ujianModal.id_ujian}`}><Button color="success">Accept</Button></Link>
                 </ModalFooter>
                 </Modal>
             </Container>
